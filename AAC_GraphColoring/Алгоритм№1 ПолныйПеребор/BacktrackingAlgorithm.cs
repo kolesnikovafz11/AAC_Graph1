@@ -4,7 +4,7 @@ using AAC_Graph.Модели;
 
 namespace AAC_Graph
 {
-    public class BacktrackingAlgorithm : IGraphColor
+    public class BacktrackingAlgorithm : IGraphColor //так как обработка вершин происходит с помощью рекурсии (каждый раз рекурсия вызывается для еще неокрашенной вершины), то сложность O(n!)
     {
         private int _dim; //Размерность матрицы
         private byte[,] _adjacencyMatrix; //Матрица смежности
@@ -14,7 +14,7 @@ namespace AAC_Graph
             _adjacencyMatrix = adjacencyMatrix;
             var localMax = int.MaxValue;
             var coloredNodesResult = new Dictionary<int, int>(0); //Набор цветов
-            for (int i = 0; i < _dim; i++)
+            for (int i = 0; i < _dim; i++) 
             {
                 var result = RecursiveColorGraph(new Dictionary<int, int>(),i);
                 var max = result.Values.Max();
@@ -31,7 +31,7 @@ namespace AAC_Graph
             return (colorsAmount + 1, commonFormat);
         }
      
-        private Dictionary<int,int> RecursiveColorGraph(Dictionary<int,int> currentColoredNodes,int currentNode) //Рекурсивный обход всех вершин
+        private Dictionary<int,int> RecursiveColorGraph(Dictionary<int,int> currentColoredNodes,int currentNode) //Рекурсивный обход всех вершин //O(n!)
         {
             PaintCurrentNode(currentColoredNodes, currentNode);
 
@@ -63,7 +63,7 @@ namespace AAC_Graph
         private void PaintCurrentNode(Dictionary<int, int> currentColoredNodes, int currentNode) //Раскраска вершины в свободный цвет
         {
             //цикл по всем цветам
-            for (int color = 0; color < 16777216; color++)
+            for (int color = 0; color < 16777216; color++) 
             {
                 var isColorFound = true;
                 //цикл по всем раскрашенным вершинам
