@@ -46,7 +46,7 @@ namespace AAC_Graph
             return (result.Max() + 1, result);
         }
 
-        private NodeNumberRank[] GetSortedNodesByRank(int dim, ref byte[,] adjacencyMatrix) //Отсортированный список вершин по степеням
+        private NodeNumberRank[] GetSortedNodesByRank(int dim, ref byte[,] adjacencyMatrix) //Отсортированный список вершин по степеням  O(n^2)
         {
             var nodeRankList = new NodeNumberRank[dim];
             //цикл по каждой строке
@@ -63,7 +63,7 @@ namespace AAC_Graph
                 nodeRankList[i] = new NodeNumberRank(i, rank);
             }
 
-            QuickSort(ref nodeRankList, 0, nodeRankList.Length - 1);
+            QuickSort(ref nodeRankList, 0, nodeRankList.Length - 1); //O(n*log(n))
 
             //теперь поле nodeRank будет отвечать за цвет
             //инициализируем все вершины как не раскрашенные
@@ -76,7 +76,7 @@ namespace AAC_Graph
         }
 
         /// <param name="sortedNodesByRank"></param>
-        private int FindFirstNotColoredNodeIndex(ref NodeNumberRank[] sortedNodesByRank) //Находим индекс первой непокрашенной вершины в списке
+        private int FindFirstNotColoredNodeIndex(ref NodeNumberRank[] sortedNodesByRank) //Находим индекс первой непокрашенной вершины в списке O(2n)
         {
             //цикл по отсортированному списку вершин по рангу
             for (int i = 0; i < sortedNodesByRank.Length; i++)

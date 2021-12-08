@@ -2,8 +2,8 @@
 {
     public struct NodeNumberRank
     {
-        public int nodeNumber;
-        public int nodeRank;
+        public int nodeNumber; //номер вершины
+        public int nodeRank; //номер цвета 
 
         public NodeNumberRank(int nodeNumber, int nodeRank)
         {

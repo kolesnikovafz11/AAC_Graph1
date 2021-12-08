@@ -51,14 +51,14 @@ namespace AAC_Graph.Benchmarks
 
         public IEnumerable<object[]> GreedyTrivialAlgoArgumentsProvider()
         {
-            const int dim = 100;
+            const int dim = 10;
             var testData = Randomizer.GetRandomAdjacencyMatrix(dim);
             yield return new object[] {dim, testData};
         }
 
         public IEnumerable<object[]> GreedySortedByRankAlgoArgumentsProvider()
         {
-            const int dim = 100;
+            const int dim = 10;
             var testData = Randomizer.GetRandomAdjacencyMatrix(dim);
             yield return new object[] {dim, testData};
         }
