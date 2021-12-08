@@ -42,7 +42,7 @@ namespace AAC_Graph
                     break;
 
             }
-            BenchmarkRunner.Run<GraphColoringAlgorithmsBenchmark>(); //автоматическое тестирование            
+            //BenchmarkRunner.Run<GraphColoringAlgorithmsBenchmark>(); //автоматическое тестирование            
             Console.WriteLine("Введите любую клавишу для выхода ...");
             Console.ReadKey();
         }

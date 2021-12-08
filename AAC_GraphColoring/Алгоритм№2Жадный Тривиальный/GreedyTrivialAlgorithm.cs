@@ -5,18 +5,18 @@ namespace AAC_Graph
 {
     public sealed class GreedyTrivialAlgorithm : IGraphColor
     {
-        public (int colorsAmount, int[] coloredNodes) ColorGraph(int dim, ref byte[,] adjacencyMatrix)
+        public (int colorsAmount, int[] coloredNodes) ColorGraph(int dim, ref byte[,] adjacencyMatrix)  
         {
             var coloredNodes = new int[dim];
-            InitAllNodesAsUncolored(ref coloredNodes);
+            InitAllNodesAsUncolored(ref coloredNodes); //O(n)
 
             //цикл по всем вершинам
-            for (int i = 0; i < dim; i++)
+            for (int i = 0; i < dim; i++) //O(n)
             {
                 //цикл по всем цветам
-                for (int j = 0; j < 16777216; j++) //256*256*256 = rgb
+                for (int j = 0; j < 16777216; j++) //O(n^2)
                 {
-                    if (!CanNodeBeColored(i, j, dim, ref adjacencyMatrix, ref coloredNodes)) continue;
+                    if (!CanNodeBeColored(i, j, dim, ref adjacencyMatrix, ref coloredNodes)) continue; //O(n^3)
 
                     coloredNodes[i] = j;
                     break;
@@ -26,7 +26,7 @@ namespace AAC_Graph
             return (coloredNodes.Max() + 1, coloredNodes);
         }
         
-        private  void InitAllNodesAsUncolored(ref int[] coloredNodes) //Инициализация вершины как непокрашенной
+        private  void InitAllNodesAsUncolored(ref int[] coloredNodes) //Инициализация вершины как непокрашенной O(n)
         {
             // -1 - не раскрашеннная вершина
             for (int i = 0; i < coloredNodes.Length; i++)
@@ -35,7 +35,7 @@ namespace AAC_Graph
             }
         }
 
-        private bool CanNodeBeColored(int node, int color, int dim, ref byte[,] adjacencyMatrix, ref int[] coloredList) //Проверка, можно ли раскрасить вершину в текущий цвет
+        private bool CanNodeBeColored(int node, int color, int dim, ref byte[,] adjacencyMatrix, ref int[] coloredList) //Проверка, можно ли раскрасить вершину в текущий цвет O(n)
         {
             //цикл по всем вершинам
             for (int i = 0; i < dim; i++)
