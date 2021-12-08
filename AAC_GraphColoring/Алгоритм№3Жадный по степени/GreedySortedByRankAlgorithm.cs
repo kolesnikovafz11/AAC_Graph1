@@ -9,12 +9,12 @@ namespace AAC_Graph
         public (int colorsAmount, int[] coloredNodes) ColorGraph(int dim, ref byte[,] adjacencyMatrix)
         {
             //структура номер вершины - цвет уже отсортированных по рангу 
-            var sortedNodesByRank = GetSortedNodesByRank(dim, ref adjacencyMatrix);
+            var sortedNodesByRank = GetSortedNodesByRank(dim, ref adjacencyMatrix); //O(n^2)
 
             //пока есть еще не раскрашенная вершина
             int nodeIndex;
             var color = 0;
-            while ((nodeIndex = FindFirstNotColoredNodeIndex(ref sortedNodesByRank)) != -1)
+            while ((nodeIndex = FindFirstNotColoredNodeIndex(ref sortedNodesByRank)) != -1) //O(n)
             {
                 //список вершин одного цвета
                 var nodesColoredBySameColor = new List<NodeNumberRank>();
@@ -31,7 +31,7 @@ namespace AAC_Graph
                     if (sortedNodesByRank[i].nodeRank == -1)
                     {
                         //если вершина НЕ смежна ни с одной уже окрашенной вершине этим же цветом,то её можно покрасить этим же цветом
-                        if (!IsNodeAdjacentToColoredOnes(ref nodesColoredBySameColor, ref adjacencyMatrix, ref sortedNodesByRank[i]))
+                        if (!IsNodeAdjacentToColoredOnes(ref nodesColoredBySameColor, ref adjacencyMatrix, ref sortedNodesByRank[i])) //O(n)
                         {
                             sortedNodesByRank[i].nodeRank = color;
                             nodesColoredBySameColor.Add(sortedNodesByRank[i]);
@@ -42,7 +42,7 @@ namespace AAC_Graph
                 color++;
             }
 
-            var result = GetResult(dim, ref sortedNodesByRank);
+            var result = GetResult(dim, ref sortedNodesByRank); //O(n)
             return (result.Max() + 1, result);
         }
 
@@ -76,7 +76,7 @@ namespace AAC_Graph
         }
 
         /// <param name="sortedNodesByRank"></param>
-        private int FindFirstNotColoredNodeIndex(ref NodeNumberRank[] sortedNodesByRank) //Находим индекс первой непокрашенной вершины в списке O(2n)
+        private int FindFirstNotColoredNodeIndex(ref NodeNumberRank[] sortedNodesByRank) //Находим индекс первой непокрашенной вершины в списке O(n)
         {
             //цикл по отсортированному списку вершин по рангу
             for (int i = 0; i < sortedNodesByRank.Length; i++)
@@ -93,7 +93,7 @@ namespace AAC_Graph
         /// <param name="coloredNodes"> список окрашенных вершин в выбранный цвет</param>
         /// <param name="adjacencyMatrix">матрица смежности</param>
         /// <param name="coloringNode">окрашиваемая вершина</param>
-        private bool IsNodeAdjacentToColoredOnes(ref List<NodeNumberRank> coloredNodes, ref byte[,] adjacencyMatrix, ref NodeNumberRank coloringNode) //Проверяет смежна ли вершина с какой либо другой вершиной окрашенной в этот же цвет
+        private bool IsNodeAdjacentToColoredOnes(ref List<NodeNumberRank> coloredNodes, ref byte[,] adjacencyMatrix, ref NodeNumberRank coloringNode) //Проверяет смежна ли вершина с какой либо другой вершиной окрашенной в этот же цвет O(n)
         {
             //цикл по всем вершинам уже окрашенным выбранным цветом
             for (int i = 0; i < coloredNodes.Count; i++)
@@ -110,7 +110,7 @@ namespace AAC_Graph
 
         /// <param name="dim">размерность</param>
         /// <param name="sortedNodesByRank">список вершин отсортированных по степени</param>
-        private int[] GetResult(int dim,ref NodeNumberRank[] sortedNodesByRank) //Конвертация структуры в массив, где индекс - номер узла, а значение - цвет 
+        private int[] GetResult(int dim,ref NodeNumberRank[] sortedNodesByRank) //Конвертация структуры в массив, где индекс - номер узла, а значение - цвет //O(n)
         {
             var nodeIndexColor = new int[dim];
             for (int i = 0; i < dim; i++)
@@ -126,7 +126,7 @@ namespace AAC_Graph
         # region QUICK SORT IMPLEMENTATION
 
         
-        private void Swap(ref int x, ref int y) //Метод обмена элементов массива
+        private void Swap(ref int x, ref int y) //Метод обмена элементов массива //O(1)
         {
             var t = x;
             x = y;
@@ -134,7 +134,7 @@ namespace AAC_Graph
         }
 
         
-        private int Partition(NodeNumberRank[] array, int minIndex, int maxIndex) //Метод, возвращающий индекс опорного элемента
+        private int Partition(NodeNumberRank[] array, int minIndex, int maxIndex) //Метод, возвращающий индекс опорного элемента //O(n)
         {
             var pivot = minIndex - 1;
             for (var i = minIndex; i < maxIndex; i++)
@@ -154,7 +154,7 @@ namespace AAC_Graph
         }
 
         
-        public void QuickSort(ref NodeNumberRank[] array, int minIndex, int maxIndex)//Метод быстрой сортировки
+        public void QuickSort(ref NodeNumberRank[] array, int minIndex, int maxIndex)//Метод быстрой сортировки //O(n*log(n))
         {
             while (true)
             {
