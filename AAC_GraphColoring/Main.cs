@@ -13,7 +13,7 @@ namespace AAC_Graph
     {
         public static void Main(string[] args)
         {
-            /*var adjacencyMatrix = FileReaderWriter.ReadAdjacencyMatrix(FileReaderWriter.InputFilePath);
+            var adjacencyMatrix = FileReaderWriter.ReadAdjacencyMatrix(FileReaderWriter.InputFilePath);
             var dimension = adjacencyMatrix.GetLength(0);//размерность матрицы считанной       
             Console.WriteLine("Выберите алгоритм для раскраски графа из файла:");
             Console.WriteLine("1 Полный перебор ");
@@ -41,7 +41,7 @@ namespace AAC_Graph
                         Console.WriteLine("Проверьте файл Output");
                     break;
 
-            }*/
+            }
             BenchmarkRunner.Run<GraphColoringAlgorithmsBenchmark>(); //автоматическое тестирование            
             Console.WriteLine("Введите любую клавишу для выхода ...");
             Console.ReadKey();
